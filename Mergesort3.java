@@ -17,6 +17,8 @@ public class Mergesort3 {
 
         // Additional code for performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
+        long grandTotalTimeNano = 0; // Initialize variable to keep track of the grand total time in nanoseconds
+        double grandTotalTimeSeconds = 0.0; // Initialize variable to keep track of the grand total time in seconds
 
         for (int size : sizes) {
             int[][] testArrays = {
@@ -43,6 +45,10 @@ public class Mergesort3 {
 
                 long averageTimeNano = totalTime / 100;
                 double averageTimeSeconds = averageTimeNano / 1.0e9; // Convert nanoseconds to seconds
+                
+                // Add to the grand total counters
+                grandTotalTimeNano += totalTime;
+                grandTotalTimeSeconds += averageTimeSeconds;
 
                 long minutes = (long) (averageTimeSeconds / 60);
                 double seconds = averageTimeSeconds % 60;
@@ -53,6 +59,16 @@ public class Mergesort3 {
                 System.out.println("    " + minutes + " minutes and " + seconds + " seconds");
             }
         }
+
+        // Display grand total time across all sorts
+        double grandTotalTimeSecondsFinal = grandTotalTimeNano / 1.0e9; // Convert nanoseconds to seconds for grand total
+        long grandTotalMinutes = (long) (grandTotalTimeSecondsFinal / 60);
+        double grandTotalSeconds = grandTotalTimeSecondsFinal % 60;
+
+        System.out.println("\nGrand Total Execution Time for All Arrays and Sizes:");
+        System.out.println("    " + grandTotalTimeNano + " nanoseconds");
+        System.out.println("    " + grandTotalTimeSecondsFinal + " seconds");
+        System.out.println("    " + grandTotalMinutes + " minutes and " + grandTotalSeconds + " seconds");
     }
 
     // Updated mergesort3 method to accept an array and size as parameters
