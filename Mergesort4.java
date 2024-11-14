@@ -38,8 +38,8 @@ public class Mergesort4 {
                 int[] generatedArray = testArrays[t];
                 long totalTime = 0;
 
-                // Run the sort 10 times and calculate the average execution time
-                for (int i = 0; i < 10; i++) {
+                // Run the sort 100 times and calculate the average execution time
+                for (int i = 0; i < 100; i++) {
                     Node list = arrayToList(generatedArray.clone());
                     long startTime = System.nanoTime();
                     list = mergesort4(list);
@@ -47,7 +47,7 @@ public class Mergesort4 {
                     totalTime += (endTime - startTime);
                 }
 
-                long averageTimeNano = totalTime / 10;
+                long averageTimeNano = totalTime / 100;
                 double averageTimeSeconds = averageTimeNano / 1.0e9; // Convert nanoseconds to seconds
 
                 long minutes = (long) (averageTimeSeconds / 60);
