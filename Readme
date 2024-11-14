@@ -25,24 +25,26 @@ Recursively sort each half
 
 Merge the two sorted halves into a final sorted array
 
-## Commands
+# Commands
 
-```java 
+MergeSort1 
 
-# MergeSort1 
-javac Mergesort1.java
+* javac Mergesort1.java
 java Mergesort1
 
-# MergeSort2 
-javac Mergesort2.java
+MergeSort2 
+
+* javac Mergesort2.java
 java Mergesort2
 
-# MergeSort3 
-javac Mergesort3.java
+MergeSort3 
+
+* javac Mergesort3.java
 java Mergesort3
 
-# MergeSort4 
-javac Node.java Mergesort4.java
+MergeSort4 
+
+* javac Node.java Mergesort4.java
 java Mergesort4
 
 ## Contributing
