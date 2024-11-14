@@ -51,9 +51,8 @@ public class Mergesort4 {
                 long averageTimeNano = totalTime / 100;
                 double averageTimeSeconds = averageTimeNano / 1.0e9; // Convert nanoseconds to seconds
 
-                // Add to the grand total counters
+                // Add to the grand total counter in nanoseconds
                 grandTotalTimeNano += totalTime;
-                grandTotalTimeSeconds += averageTimeSeconds;
 
                 long minutes = (long) (averageTimeSeconds / 60);
                 double seconds = averageTimeSeconds % 60;
