@@ -24,7 +24,6 @@ public class Mergesort4 {
         // Additional code for performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000};
         long grandTotalTimeNano = 0; // Initialize variable to keep track of the grand total time in nanoseconds
-        double grandTotalTimeSeconds = 0.0; // Initialize variable to keep track of the grand total time in seconds
 
         for (int size : sizes) {
             int[][] testArrays = {

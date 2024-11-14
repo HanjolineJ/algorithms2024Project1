@@ -16,8 +16,7 @@ public class Mergesort2 {
         // Additional code for performance testing with different sizes
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
         long grandTotalTimeNano = 0; // Variable to track grand total time in nanoseconds
-        double grandTotalTimeSeconds = 0.0; // Variable to track grand total time in seconds
-
+        
         for (int size : sizes) {
             int[][] testArrays = {
                 ArrayGenerator.generateRandomArray(size),
