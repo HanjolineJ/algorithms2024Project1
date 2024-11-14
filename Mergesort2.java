@@ -1,11 +1,11 @@
 public class Mergesort2 {
-    static int[] S;
+    private static int[] S;  // Array to be sorted
 
     public static void main(String[] args) {
         S = new int[]{16, 14, 5, 7, 1, 8, 12, 10};
         int n = S.length;
 
-        mergesort2(S, 0, n - 1);
+        mergesort2(1, n);  // Sort the array from index 1 to n (following textbook convention)
 
         System.out.println("Sorted array: ");
         for (int num : S) {
@@ -13,9 +13,8 @@ public class Mergesort2 {
         }
         System.out.println("\n");
 
-        // Additional code for performance testing
+        // Additional code for performance testing with different sizes
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-
         for (int size : sizes) {
             int[][] testArrays = {
                 ArrayGenerator.generateRandomArray(size),
@@ -25,16 +24,15 @@ public class Mergesort2 {
             };
 
             String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
-
             for (int t = 0; t < testArrays.length; t++) {
                 int[] generatedArray = testArrays[t];
                 long totalTime = 0;
 
-                // Run the sort 100 times and calculate the average execution time
                 for (int i = 0; i < 100; i++) {
                     int[] arrayCopy = generatedArray.clone();
+                    S = arrayCopy;
                     long startTime = System.nanoTime();
-                    mergesort2(arrayCopy, 0, arrayCopy.length - 1);
+                    mergesort2(1, S.length);
                     long endTime = System.nanoTime();
                     totalTime += (endTime - startTime);
                 }
@@ -53,58 +51,56 @@ public class Mergesort2 {
         }
     }
 
-    // Updated mergesort2 method to accept the array as a parameter
-    public static void mergesort2(int[] array, int low, int high) {
+    // Mergesort2 method, following textbook convention of indexing from 1
+    public static void mergesort2(int low, int high) {
         if (low < high) {
             int mid = (low + high) / 2;
-
-            // Recursively sort the two halves
-            mergesort2(array, low, mid);
-            mergesort2(array, mid + 1, high);
-
-            // Merge the sorted halves
-            merge2(array, low, mid, high);
+            mergesort2(low, mid);
+            mergesort2(mid + 1, high);
+            merge2(low, mid, high);
         }
     }
 
-    // Updated merge2 method to accept the array as a parameter
-    public static void merge2(int[] array, int low, int mid, int high) {
+    // Merge method to merge the sorted subarrays (Algorithm 2.5)
+    public static void merge2(int low, int mid, int high) {
         int n1 = mid - low + 1;
         int n2 = high - mid;
 
-        int[] leftArray = new int[n1];
-        int[] rightArray = new int[n2];
+        // Create temporary arrays
+        int[] L = new int[n1];
+        int[] R = new int[n2];
 
         // Copy data to temporary arrays
-        for (int i = 0; i < n1; ++i)
-            leftArray[i] = array[low + i];
-        for (int j = 0; j < n2; ++j)
-            rightArray[j] = array[mid + 1 + j];
+        for (int i = 0; i < n1; i++) {
+            L[i] = S[low - 1 + i];  // Adjust for indexing from 1 (low - 1)
+        }
+        for (int j = 0; j < n2; j++) {
+            R[j] = S[mid + j];
+        }
 
-        // Merge the temporary arrays
-        int i = 0, j = 0;
-        int k = low;
+        // Merge the temp arrays back into S
+        int i = 0, j = 0, k = low - 1;
         while (i < n1 && j < n2) {
-            if (leftArray[i] <= rightArray[j]) {
-                array[k] = leftArray[i];
+            if (L[i] <= R[j]) {
+                S[k] = L[i];
                 i++;
             } else {
-                array[k] = rightArray[j];
+                S[k] = R[j];
                 j++;
             }
             k++;
         }
 
-        // Copy remaining elements of leftArray if any
+        // Copy remaining elements of L, if any
         while (i < n1) {
-            array[k] = leftArray[i];
+            S[k] = L[i];
             i++;
             k++;
         }
 
-        // Copy remaining elements of rightArray if any
+        // Copy remaining elements of R, if any
         while (j < n2) {
-            array[k] = rightArray[j];
+            S[k] = R[j];
             j++;
             k++;
         }
