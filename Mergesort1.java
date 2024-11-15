@@ -1,19 +1,32 @@
 public class Mergesort1 {
+    static long totalComparisons = 0; // Counter for comparisons in merge
+    static long totalMemoryAllocated = 0; // Counter for memory allocated in merge (bytes)
+    static long grandTotalComparisons = 0; // Counter for total comparisons across all tests
+
     public static void main(String[] args) {
-        // Original main method for testing small hardcoded array
-        int[] array = {16, 14, 5, 7, 1, 8, 12, 10};
+        System.out.println("Merge Sort Algorithm Used: MergeSort1\n");
+
+        int[] array = {16, 14, 5, 7, 1, 8, 12, 10, 4, 5};
         mergeSort(array, 0, array.length - 1);
-        
+
         System.out.println("Sorted array: ");
         for (int num : array) {
             System.out.print(num + " ");
         }
         System.out.println("\n");
 
-        // Additional code for performance testing
+        // Display time and space complexity analysis
+        System.out.println("Mergesort Analysis:");
+        System.out.println("    Algorithm: Top-Down Recursive Merge Sort");
+        System.out.println("    Total Comparisons Made: " + totalComparisons);
+        System.out.println("    Total Memory Allocated: " + totalMemoryAllocated + " bytes");
+        System.out.println("    Time Complexity: O(n log n)");
+        System.out.println("    Space Complexity: O(n)");
+
+        // Performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        long grandTotalTimeMillis = 0; // Initialize variable to keep track of the grand total time in milliseconds
-        long grandTotalMemoryBytes = 0; // Initialize variable to keep track of the grand total memory usage in bytes
+        long grandTotalTimeMillis = 0; // Total time in milliseconds
+        long grandTotalMemoryBytes = 0; // Total memory in bytes
 
         for (int size : sizes) {
             int[][] testArrays = {
@@ -24,13 +37,15 @@ public class Mergesort1 {
             };
 
             String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
-
             for (int t = 0; t < testArrays.length; t++) {
                 int[] generatedArray = testArrays[t];
                 long totalTime = 0;
-                long totalMemoryUsed = 0; // Initialize memory usage accumulator
+                long totalMemoryUsed = 0;
 
-                // Run the sort 100 times and calculate the average execution time
+                // Reset counters
+                totalComparisons = 0;
+                totalMemoryAllocated = 0;
+
                 for (int i = 0; i < 100; i++) {
                     int[] arrayCopy = generatedArray.clone();
 
@@ -52,12 +67,13 @@ public class Mergesort1 {
                 }
 
                 long averageTimeMillis = totalTime / 100;
-                double averageTimeSeconds = averageTimeMillis / 1000.0; // Convert milliseconds to seconds
-                long averageMemoryUsed = totalMemoryUsed / 100; // Average memory used in bytes
+                double averageTimeSeconds = averageTimeMillis / 1000.0;
+                long averageMemoryUsed = totalMemoryUsed / 100;
 
-                // Add to the grand totals
+                // Add to grand totals
                 grandTotalTimeMillis += totalTime;
                 grandTotalMemoryBytes += totalMemoryUsed;
+                grandTotalComparisons += totalComparisons; // Accumulate total comparisons
 
                 long minutes = averageTimeMillis / (60 * 1000);
                 double seconds = (averageTimeMillis % (60 * 1000)) / 1000.0;
@@ -67,11 +83,12 @@ public class Mergesort1 {
                 System.out.println("    " + averageTimeSeconds + " seconds");
                 System.out.println("    " + minutes + " minutes and " + seconds + " seconds");
                 System.out.println("    " + averageMemoryUsed + " bytes of memory used");
+                System.out.println("    Total Comparisons: " + totalComparisons);
+                System.out.println("    Total Memory Allocated: " + totalMemoryAllocated + " bytes");
             }
         }
 
-        // Display grand total time and memory across all sorts
-        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0; // Convert milliseconds to seconds for grand total
+        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0;
         long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);
         double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;
 
@@ -80,9 +97,10 @@ public class Mergesort1 {
         System.out.println("    " + grandTotalTimeSecondsFinal + " seconds");
         System.out.println("    " + grandTotalMinutes + " minutes and " + grandTotalSeconds + " seconds");
         System.out.println("    " + grandTotalMemoryBytes + " bytes of total memory used");
+        System.out.println("    " + grandTotalComparisons + " total comparisons made");
+        System.out.println("Merge Sort Algorithm Used: MergeSort1\n");
     }
 
-    // Standard Mergesort method
     public static void mergeSort(int[] array, int left, int right) {
         if (left < right) {
             int mid = (left + right) / 2;
@@ -92,13 +110,14 @@ public class Mergesort1 {
         }
     }
 
-    // Merge function
     public static void merge(int[] array, int left, int mid, int right) {
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
         int[] L = new int[n1];
         int[] R = new int[n2];
+
+        totalMemoryAllocated += (n1 + n2) * Integer.BYTES; // Memory allocated for L and R
 
         for (int i = 0; i < n1; i++) {
             L[i] = array[left + i];
@@ -109,6 +128,7 @@ public class Mergesort1 {
 
         int i = 0, j = 0, k = left;
         while (i < n1 && j < n2) {
+            totalComparisons++; // Count each comparison
             if (L[i] <= R[j]) {
                 array[k] = L[i];
                 i++;

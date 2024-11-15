@@ -1,9 +1,13 @@
 public class Mergesort3 {
     static int[] S;
     static int[] U;
+    static long totalComparisons = 0; // Counter for comparisons
+    static long grandTotalComparisons = 0; // Counter for grand total comparisons
 
     public static void main(String[] args) {
-        S = new int[]{16, 14, 5, 7, 1, 8, 12, 10};
+        System.out.println("Merge Sort Algorithm Used: MergeSort3\n");
+
+        S = new int[]{16, 14, 5, 7, 1, 8, 12, 10, 1, 9};
         int n = S.length;
         U = new int[n];
 
@@ -15,7 +19,14 @@ public class Mergesort3 {
         }
         System.out.println("\n");
 
-        // Additional code for performance testing
+        // Display initial analysis
+        System.out.println("Mergesort Analysis:");
+        System.out.println("    Algorithm: Bottom-Up Iterative Merge Sort");
+        System.out.println("    Total Comparisons Made: " + totalComparisons);
+        System.out.println("    Time Complexity: O(n log n)");
+        System.out.println("    Space Complexity: O(n)");
+
+        // Performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
         long grandTotalTimeMillis = 0; // Variable to track grand total time in milliseconds
         long grandTotalMemoryBytes = 0; // Variable to track grand total memory usage in bytes
@@ -33,9 +44,11 @@ public class Mergesort3 {
             for (int t = 0; t < testArrays.length; t++) {
                 int[] generatedArray = testArrays[t];
                 long totalTime = 0;
-                long totalMemoryUsed = 0; // Accumulate memory usage
+                long totalMemoryUsed = 0;
 
-                // Run the sort 100 times and calculate the average execution time
+                // Reset local counters
+                totalComparisons = 0;
+
                 for (int i = 0; i < 100; i++) {
                     int[] arrayCopy = generatedArray.clone();
 
@@ -57,12 +70,13 @@ public class Mergesort3 {
                 }
 
                 long averageTimeMillis = totalTime / 100;
-                double averageTimeSeconds = averageTimeMillis / 1000.0; // Convert milliseconds to seconds
-                long averageMemoryUsed = totalMemoryUsed / 100; // Average memory used in bytes
+                double averageTimeSeconds = averageTimeMillis / 1000.0;
+                long averageMemoryUsed = totalMemoryUsed / 100;
 
-                // Add to the grand totals
+                // Add to grand totals
                 grandTotalTimeMillis += totalTime;
                 grandTotalMemoryBytes += totalMemoryUsed;
+                grandTotalComparisons += totalComparisons;
 
                 long minutes = averageTimeMillis / (60 * 1000);
                 double seconds = (averageTimeMillis % (60 * 1000)) / 1000.0;
@@ -72,22 +86,24 @@ public class Mergesort3 {
                 System.out.println("    " + averageTimeSeconds + " seconds");
                 System.out.println("    " + minutes + " minutes and " + seconds + " seconds");
                 System.out.println("    " + averageMemoryUsed + " bytes of memory used");
+                System.out.println("    Total Comparisons: " + totalComparisons);
             }
         }
 
-        // Display grand total time and memory across all sorts
-        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0; // Convert milliseconds to seconds for grand total
+        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0;
         long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);
         double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;
 
+        // Display grand totals
         System.out.println("\nGrand Total Execution Time for All Arrays and Sizes:");
         System.out.println("    " + grandTotalTimeMillis + " milliseconds");
         System.out.println("    " + grandTotalTimeSecondsFinal + " seconds");
         System.out.println("    " + grandTotalMinutes + " minutes and " + grandTotalSeconds + " seconds");
         System.out.println("    " + grandTotalMemoryBytes + " bytes of total memory used");
+        System.out.println("    " + grandTotalComparisons + " total comparisons made");
+        System.out.println("Merge Sort Algorithm Used: MergeSort3\n");
     }
 
-    // Updated mergesort3 method to accept an array and size as parameters
     public static void mergesort3(int[] array, int n) {
         U = new int[n]; // Auxiliary array for merging
 
@@ -114,6 +130,7 @@ public class Mergesort3 {
 
         // Merge the two subarrays into U
         while (i <= mid && j <= high) {
+            totalComparisons++; // Count each comparison
             if (array[i] <= array[j]) {
                 U[k] = array[i];
                 i++;
