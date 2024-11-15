@@ -16,7 +16,7 @@ public class Mergesort4 {
     public static void main(String[] args) {
         System.out.println("Merge Sort Algorithm Used: MergeSort4\n");
 
-        int[] array = {16, 14, 5, 7, 1, 8, 12, 10, 3, 19, 56, 134, 444, 1, 12, 123, 561, 10000, 863};
+        int[] array = {16, 14, 8, 134, 444, 123, 561, 10000, 863, 22};
         head = arrayToList(array);
 
         head = mergesort4(head);
