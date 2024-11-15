@@ -17,7 +17,7 @@ public class Mergesort3 {
 
         // Additional code for performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        long grandTotalTimeNano = 0; // Initialize variable to keep track of the grand total time in nanoseconds
+        long grandTotalTimeMillis = 0; // Initialize variable to keep track of the grand total time in milliseconds
 
         for (int size : sizes) {
             int[][] testArrays = {
@@ -36,35 +36,35 @@ public class Mergesort3 {
                 // Run the sort 100 times and calculate the average execution time
                 for (int i = 0; i < 100; i++) {
                     int[] arrayCopy = generatedArray.clone();
-                    long startTime = System.nanoTime();
+                    long startTime = System.currentTimeMillis();
                     mergesort3(arrayCopy, arrayCopy.length);
-                    long endTime = System.nanoTime();
+                    long endTime = System.currentTimeMillis();
                     totalTime += (endTime - startTime);
                 }
 
-                long averageTimeNano = totalTime / 100;
-                double averageTimeSeconds = averageTimeNano / 1.0e9; // Convert nanoseconds to seconds
+                long averageTimeMillis = totalTime / 100;
+                double averageTimeSeconds = averageTimeMillis / 1000.0; // Convert milliseconds to seconds
 
-                // Add to the grand total counter in nanoseconds
-                grandTotalTimeNano += totalTime;
+                // Add to the grand total counter in milliseconds
+                grandTotalTimeMillis += totalTime;
 
-                long minutes = (long) (averageTimeSeconds / 60);
-                double seconds = averageTimeSeconds % 60;
+                long minutes = averageTimeMillis / (60 * 1000);
+                double seconds = (averageTimeMillis % (60 * 1000)) / 1000.0;
 
                 System.out.println("Average execution time for " + arrayTypes[t] + " array of size " + size + ":");
-                System.out.println("    " + averageTimeNano + " nanoseconds");
+                System.out.println("    " + averageTimeMillis + " milliseconds");
                 System.out.println("    " + averageTimeSeconds + " seconds");
                 System.out.println("    " + minutes + " minutes and " + seconds + " seconds");
             }
         }
 
         // Display grand total time across all sorts
-        double grandTotalTimeSecondsFinal = grandTotalTimeNano / 1.0e9; // Convert nanoseconds to seconds for grand total
-        long grandTotalMinutes = (long) (grandTotalTimeSecondsFinal / 60);
-        double grandTotalSeconds = grandTotalTimeSecondsFinal % 60;
+        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0; // Convert milliseconds to seconds for grand total
+        long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);
+        double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;
 
         System.out.println("\nGrand Total Execution Time for All Arrays and Sizes:");
-        System.out.println("    " + grandTotalTimeNano + " nanoseconds");
+        System.out.println("    " + grandTotalTimeMillis + " milliseconds");
         System.out.println("    " + grandTotalTimeSecondsFinal + " seconds");
         System.out.println("    " + grandTotalMinutes + " minutes and " + grandTotalSeconds + " seconds");
     }

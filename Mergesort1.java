@@ -12,7 +12,7 @@ public class Mergesort1 {
 
         // Additional code for performance testing
         int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        long grandTotalTimeNano = 0; // Initialize variable to keep track of the grand total time in nanoseconds
+        long grandTotalTimeMillis = 0; // Initialize variable to keep track of the grand total time in milliseconds
 
         for (int size : sizes) {
             int[][] testArrays = {
@@ -31,86 +31,86 @@ public class Mergesort1 {
                 // Run the sort 100 times and calculate the average execution time
                 for (int i = 0; i < 100; i++) {
                     int[] arrayCopy = generatedArray.clone();
-                    long startTime = System.nanoTime();
+                    long startTime = System.currentTimeMillis();
                     mergeSort(arrayCopy, 0, arrayCopy.length - 1);
-                    long endTime = System.nanoTime();
+                    long endTime = System.currentTimeMillis();
                     totalTime += (endTime - startTime);
                 }
 
-                long averageTimeNano = totalTime / 100;
-                double averageTimeSeconds = averageTimeNano / 1.0e9; // Convert nanoseconds to seconds
+                long averageTimeMillis = totalTime / 100;
+                double averageTimeSeconds = averageTimeMillis / 1000.0; // Convert milliseconds to seconds
 
-                // Add to the grand total counter in nanoseconds
-                grandTotalTimeNano += totalTime;
+                // Add to the grand total counter in milliseconds
+                grandTotalTimeMillis += totalTime;
 
-                long minutes = (long) (averageTimeSeconds / 60);
-                double seconds = averageTimeSeconds % 60;
+                long minutes = averageTimeMillis / (60 * 1000);
+                double seconds = (averageTimeMillis % (60 * 1000)) / 1000.0;
 
                 System.out.println("Average execution time for " + arrayTypes[t] + " array of size " + size + ":");
-                System.out.println("    " + averageTimeNano + " nanoseconds");
+                System.out.println("    " + averageTimeMillis + " milliseconds");
                 System.out.println("    " + averageTimeSeconds + " seconds");
                 System.out.println("    " + minutes + " minutes and " + seconds + " seconds");
             }
         }
 
         // Display grand total time across all sorts
-        double grandTotalTimeSecondsFinal = grandTotalTimeNano / 1.0e9; // Convert nanoseconds to seconds for grand total
-        long grandTotalMinutes = (long) (grandTotalTimeSecondsFinal / 60);
-        double grandTotalSeconds = grandTotalTimeSecondsFinal % 60;
+        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0; // Convert milliseconds to seconds for grand total
+        long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);
+        double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;
 
         System.out.println("\nGrand Total Execution Time for All Arrays and Sizes:");
-        System.out.println("    " + grandTotalTimeNano + " nanoseconds");
+        System.out.println("    " + grandTotalTimeMillis + " milliseconds");
         System.out.println("    " + grandTotalTimeSecondsFinal + " seconds");
         System.out.println("    " + grandTotalMinutes + " minutes and " + grandTotalSeconds + " seconds");
     }
 
     // Standard Mergesort method
-    public static void mergeSort(int[] array, int left, int right) { // left is the index of the first element and right is the index of the last element
-        if (left < right) { // Base case: if left is not smaller than right
-            int mid = (left + right) / 2; // Find the middle point
-            mergeSort(array, left, mid); // Sort the left half
-            mergeSort(array, mid + 1, right); // Sort the right half
-            merge(array, left, mid, right); // Merge the sorted halves
+    public static void mergeSort(int[] array, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSort(array, left, mid);
+            mergeSort(array, mid + 1, right);
+            merge(array, left, mid, right);
         }
     }
 
     // Merge function
-    public static void merge(int[] array, int left, int mid, int right) { // left is the index of the first element, mid is the index of the middle element, right is the index of the last element
-        int n1 = mid - left + 1; // Size of the left subarray
-        int n2 = right - mid; // Size of the right subarray
+    public static void merge(int[] array, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
 
-        int[] L = new int[n1]; // Create temporary arrays
-        int[] R = new int[n2]; // Create temporary arrays
+        int[] L = new int[n1];
+        int[] R = new int[n2];
 
-        for (int i = 0; i < n1; i++) { // Copy data to temporary arrays L[] and R[]
-            L[i] = array[left + i]; // Copy the left subarray
+        for (int i = 0; i < n1; i++) {
+            L[i] = array[left + i];
         }
-        for (int j = 0; j < n2; j++) { // Copy data to temporary arrays L[] and R[]
-            R[j] = array[mid + 1 + j]; // Copy the right subarray
+        for (int j = 0; j < n2; j++) {
+            R[j] = array[mid + 1 + j];
         }
 
-        int i = 0, j = 0, k = left; // Initial indexes of first and second subarrays
-        while (i < n1 && j < n2) { // Merge the temporary arrays back into array[left..right]
-            if (L[i] <= R[j]) { // Compare elements of the two subarrays
-                array[k] = L[i]; // Copy the smaller element to array
-                i++; // Increment index of the left subarray
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                array[k] = L[i];
+                i++;
             } else {
-                array[k] = R[j]; // Copy the smaller element to array
-                j++; // Increment index of the right subarray
+                array[k] = R[j];
+                j++;
             }
-            k++; // Increment index of the merged array
+            k++;
         }
 
-        while (i < n1) { // Copy the remaining elements of L[], if there are any
-            array[k] = L[i]; // Copy the remaining elements of the left subarray
-            i++; // Increment index of the left subarray
-            k++; // Increment index of the merged array
+        while (i < n1) {
+            array[k] = L[i];
+            i++;
+            k++;
         }
 
-        while (j < n2) { // Copy the remaining elements of R[], if there are any
-            array[k] = R[j]; // Copy the remaining elements of the right subarray
-            j++; // Increment index of the right subarray
-            k++; // Increment index of the merged array
+        while (j < n2) {
+            array[k] = R[j];
+            j++;
+            k++;
         }
     }
 }
