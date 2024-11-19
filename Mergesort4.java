@@ -431,7 +431,7 @@ public class Mergesort4 {
         System.out.println("    Space Complexity: O(log n) due to recursion stack\n");
 
         // Performance testing
-        int[] sizes = {0, 1, 2, 4, 8, 10, 100, 1000, 10000, 100000, 1000000};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
         String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
         long grandTotalTimeMillis = 0;
 

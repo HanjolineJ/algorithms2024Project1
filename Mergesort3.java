@@ -557,7 +557,7 @@ public class Mergesort3 {
         printArray(S);
 
         // Performance testing
-        int[] sizes = {0, 1, 2, 4, 6, 10, 100, 1000, 10000, 100000, 1000000};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
         String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
         long grandTotalTimeMillis = 0;
 

@@ -551,7 +551,7 @@ public class Mergesort2 {
         printArray(S);
 
         // Performance testing with different array sizes and input types
-        int[] sizes = {0, 1, 2, 4, 6, 10, 100, 1000, 10000, 100000, 1000000};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
         String[] arrayTypes = {"Random Array", "Sorted Array", "Reversed Array", "Nearly Sorted Array"};
 
         long grandTotalTimeMillis = 0; // Grand total time in milliseconds
