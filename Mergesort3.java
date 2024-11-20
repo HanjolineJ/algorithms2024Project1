@@ -541,12 +541,12 @@ public class Mergesort3 {
     static List<String> detailedResults = new ArrayList<>(); // Summary of results
 
     public static void main(String[] args) {
-        System.out.println("Merge Sort Algorithm Used: MergeSort3\n");
+        System.out.println("Merge Sort Algorithm Used: MergeSort3\n");  // Display the algorithm used
 
         // Test a custom array for demonstration
-        S = new int[]{16, 14, 5, 7, 1, 8, 12, 10, 1, 9};
-        int n = S.length;
-        U = new int[n];
+        S = new int[]{16, 14, 5, 7, 1, 8, 12, 10, 1, 9};    // Custom array
+        int n = S.length;   // Length of the custom array
+        U = new int[n]; // array for merging
 
         System.out.println("Initial Custom Array:");
         printArray(S);
@@ -557,22 +557,22 @@ public class Mergesort3 {
         printArray(S);
 
         // Performance testing
-        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};  // Array sizes to test
+        String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};    // Array types to test
         long grandTotalTimeMillis = 0;
 
-        for (int size : sizes) {
-            for (String arrayType : arrayTypes) {
-                int[] generatedArray = generateArray(arrayType, size);
+        for (int size : sizes) {    // Loop through each size
+            for (String arrayType : arrayTypes) {   // Loop through each array type
+                int[] generatedArray = generateArray(arrayType, size);  // Generate the array
                 long totalTime = 0;
                 long totalMemoryUsed = 0;
 
                 // Reset counters
                 totalComparisons = 0;
 
-                for (int i = 0; i < 100; i++) {
-                    int[] arrayCopy = generatedArray.clone();
-                    U = new int[arrayCopy.length]; // Reset auxiliary array
+                for (int i = 0; i < 100; i++) { // Run 100 times
+                    int[] arrayCopy = generatedArray.clone();   // Copy the array
+                    U = new int[arrayCopy.length]; // Reset array
 
                     // Measure memory usage
                     Runtime runtime = Runtime.getRuntime();
@@ -580,10 +580,10 @@ public class Mergesort3 {
                     long beforeMemory = runtime.totalMemory() - runtime.freeMemory();
 
                     long startTime = System.nanoTime();
-                    mergesort3(arrayCopy, arrayCopy.length);
+                    mergesort3(arrayCopy, arrayCopy.length);    // Sort the array
                     long endTime = System.nanoTime();
 
-                    long afterMemory = runtime.totalMemory() - runtime.freeMemory();
+                    long afterMemory = runtime.totalMemory() - runtime.freeMemory();    // Memory after sorting
                     long memoryUsed = Math.max(0, afterMemory - beforeMemory);
 
                     totalMemoryUsed += memoryUsed;
@@ -648,37 +648,37 @@ public class Mergesort3 {
     public static void merge(int[] array, int low, int mid, int high) {
         int i = low, j = mid + 1, k = low;
 
-        while (i <= mid && j <= high) {
+        while (i <= mid && j <= high) { // Merge the two subarrays into U
             totalComparisons++;
-            if (array[i] <= array[j]) {
-                U[k++] = array[i++];
+            if (array[i] <= array[j]) { // Compare the elements
+                U[k++] = array[i++];    // Copy the smaller element
             } else {
-                U[k++] = array[j++];
+                U[k++] = array[j++];    // Copy the smaller element
             }
         }
 
-        while (i <= mid) {
-            U[k++] = array[i++];
+        while (i <= mid) {  // Copy remaining elements of the left subarray if any
+            U[k++] = array[i++];    // Copy the remaining elements
         }
 
-        while (j <= high) {
-            U[k++] = array[j++];
+        while (j <= high) { // Copy remaining elements of the right subarray if any
+            U[k++] = array[j++];    // Copy the remaining elements
         }
     }
 
     public static void printArray(int[] array) {
-        int limit = Math.min(array.length, 25);
-        for (int i = 0; i < limit; i++) {
-            System.out.print(array[i] + " ");
+        int limit = Math.min(array.length, 25);   // Limit the output to 25 elements
+        for (int i = 0; i < limit; i++) {   // Loop through the array
+            System.out.print(array[i] + " ");   // Print the element
         }
-        if (array.length > 25) {
-            System.out.println("... (output limited to 25 elements)");
+        if (array.length > 25) {    // Check if the array is longer than 25 elements
+            System.out.println("... (output limited to 25 elements)");   // Print the message
         } else {
             System.out.println();
         }
     }
 
-    public static int[] generateArray(String type, int size) {
+    public static int[] generateArray(String type, int size) {  // Generate an array based on the type
         int[] array = new int[size];
         switch (type) {
             case "Random":

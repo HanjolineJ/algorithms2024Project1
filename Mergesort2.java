@@ -520,7 +520,7 @@
 //     }
 // }
 
-import java.io.BufferedWriter;
+import java.io.BufferedWriter; 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -532,45 +532,45 @@ public class Mergesort2 {
     private static int[] S; // Array to be sorted
 
     public static void main(String[] args) {
-        System.out.println("Merge Sort Algorithm Used: Mergesort2 \n");
+        System.out.println("Merge Sort Algorithm Used: Mergesort2 \n"); // Display the algorithm used
 
         // Custom array for demonstration
-        int[] customArray = {44, 7481, 23, 1111111, 0000004, 0005005, 214, 43, 13, 7961};
+        int[] customArray = {44, 7481, 23, 1111111, 0000004, 0005005, 214, 43, 13, 7961}; // Custom array
 
-        System.out.println("Initial Custom Array (size " + customArray.length + "):");
-        printCustomArray(customArray);
+        System.out.println("Initial Custom Array (size " + customArray.length + "):");  // Display the initial array
+        printCustomArray(customArray);  // Print the initial array
 
         // Prepare for 1-based indexing
-        S = new int[customArray.length + 1];
-        System.arraycopy(customArray, 0, S, 1, customArray.length);
+        S = new int[customArray.length + 1];    // Prepare 1-based array
+        System.arraycopy(customArray, 0, S, 1, customArray.length); // Copy elements to 1-based index
 
         // Sort the custom array using Mergesort2
         mergesort2(1, customArray.length);
 
-        System.out.println("Sorted Custom Array (size " + customArray.length + "):");
+        System.out.println("Sorted Custom Array (size " + customArray.length + "):");   // Display the sorted array
         printArray(S);
 
         // Performance testing with different array sizes and input types
-        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        String[] arrayTypes = {"Random Array", "Sorted Array", "Reversed Array", "Nearly Sorted Array"};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};  // Array sizes to test
+        String[] arrayTypes = {"Random Array", "Sorted Array", "Reversed Array", "Nearly Sorted Array"};    // Array types
 
         long grandTotalTimeMillis = 0; // Grand total time in milliseconds
         long grandTotalMemoryBytes = 0; // Grand total memory used in bytes
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Mergesort2_Results.txt"))) {
-            writer.write("Detailed Results:\n");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Mergesort2_Results.txt"))) {    // Write results to file
+            writer.write("Detailed Results:\n");    // Write detailed results to file
 
             for (int size : sizes) {
-                for (String arrayType : arrayTypes) {
-                    int[] testArray = generateArray(arrayType, size);
+                for (String arrayType : arrayTypes) {   // Iterate over array types
+                    int[] testArray = generateArray(arrayType, size);   // Generate array of specified type and size
                     long totalTime = 0;
                     long totalMemoryUsed = 0;
 
-                    System.out.println("\nInitial " + arrayType + " (size " + size + "):");
+                    System.out.println("\nInitial " + arrayType + " (size " + size + "):");   // Display initial array
                     printCustomArray(testArray);
 
                     for (int i = 0; i < 100; i++) { // Run 100 times for averaging
-                        int[] arrayCopy = testArray.clone();
+                        int[] arrayCopy = testArray.clone(); // Clone the array
                         S = new int[arrayCopy.length + 1]; // Prepare 1-based array
                         System.arraycopy(arrayCopy, 0, S, 1, arrayCopy.length);
 
@@ -587,21 +587,21 @@ public class Mergesort2 {
                         long afterMemory = runtime.totalMemory() - runtime.freeMemory();
                         long memoryUsed = afterMemory - beforeMemory;
 
-                        totalMemoryUsed += memoryUsed;
+                        totalMemoryUsed += memoryUsed;  // Add to total memory used
                         totalTime += (endTime - startTime);
                     }
 
-                    long averageTimeNanos = totalTime / 100;
-                    double averageTimeMillis = averageTimeNanos / 1_000_000.0;
-                    double averageTimeSeconds = averageTimeMillis / 1000.0;
-                    long averageMemoryUsed = totalMemoryUsed / 100;
+                    long averageTimeNanos = totalTime / 100;    // Calculate average time in nanoseconds
+                    double averageTimeMillis = averageTimeNanos / 1_000_000.0;  // Convert to milliseconds
+                    double averageTimeSeconds = averageTimeMillis / 1000.0; // Convert to seconds
+                    long averageMemoryUsed = totalMemoryUsed / 100;   // Calculate average memory used
 
                     // Add to grand totals
                     grandTotalTimeMillis += totalTime / 1_000_000;
                     grandTotalMemoryBytes += totalMemoryUsed;
 
                     // Add to detailed summary
-                    String result = "Array Type: " + arrayType +
+                    String result = "Array Type: " + arrayType +    
                             ", Size: " + size +
                             ", Average Time: " + averageTimeMillis + " ms (" + averageTimeSeconds + " s)" +
                             ", Average Memory Used: " + averageMemoryUsed + " bytes";
@@ -627,7 +627,7 @@ public class Mergesort2 {
             System.err.println("Error writing to results file: " + e.getMessage());
         }
 
-        System.out.println("\nGrand Total Execution Time for All Sizes:");
+        System.out.println("\nGrand Total Execution Time for All Sizes:");  // Display grand total execution time
         System.out.println("    " + grandTotalTimeMillis + " milliseconds");
         System.out.println("    " + (grandTotalTimeMillis / 1000.0) + " seconds");
         System.out.println("    Grand Total Memory Used: " + grandTotalMemoryBytes + " bytes");
@@ -638,8 +638,8 @@ public class Mergesort2 {
         }
     }
 
-    public static void mergesort2(int low, int high) {
-        if (low < high) {
+    public static void mergesort2(int low, int high) {  // Mergesort2 method
+        if (low < high) {   // If low is less than high
             int mid = (low + high) / 2;
             mergesort2(low, mid);
             mergesort2(mid + 1, high);
@@ -683,7 +683,7 @@ public class Mergesort2 {
             System.out.print(array[i] + " ");
         }
         if (array.length > 26) {
-            System.out.println("... (output limited to 25 elements)");
+            System.out.println("... ( limited to 25 elements)");
         } else {
             System.out.println();
         }
@@ -692,12 +692,12 @@ public class Mergesort2 {
     public static void printCustomArray(int[] array) {
         int limit = Math.min(array.length, 25); // For 0-based indexing
         for (int i = 0; i < limit; i++) {
-            System.out.print(array[i] + " ");
+            System.out.print(array[i] + " ");   // Print the array
         }
         if (array.length > 25) {
             System.out.println("... (output limited to 25 elements)");
         } else {
-            System.out.println();
+            System.out.println();   
         }
     }
 
@@ -705,19 +705,19 @@ public class Mergesort2 {
         int[] array = new int[size];
         switch (type) {
             case "Random Array":
-                for (int i = 0; i < size; i++) array[i] = (int) (Math.random() * 10000);
+                for (int i = 0; i < size; i++) array[i] = (int) (Math.random() * 10000);    // Generate random array
                 break;
             case "Sorted Array":
-                for (int i = 0; i < size; i++) array[i] = i;
+                for (int i = 0; i < size; i++) array[i] = i;    // Generate sorted array
                 break;
             case "Reversed Array":
-                for (int i = 0; i < size; i++) array[i] = size - i;
+                for (int i = 0; i < size; i++) array[i] = size - i; // Generate reversed array
                 break;
             case "Nearly Sorted Array":
-                for (int i = 0; i < size; i++) array[i] = i;
-                for (int i = 0; i < size * 0.05; i++) array[(int) (Math.random() * size)] = (int) (Math.random() * 10000);
+                for (int i = 0; i < size; i++) array[i] = i;    // Generate nearly sorted array
+                for (int i = 0; i < size * 0.05; i++) array[(int) (Math.random() * size)] = (int) (Math.random() * 10000);  // Randomize 5% of elements
                 break;
         }
-        return array;
+        return array;   // Return the generated array
     }
 }

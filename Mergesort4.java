@@ -408,17 +408,17 @@ public class Mergesort4 {
     static List<String> detailedResults = new ArrayList<>(); // Store results for summary
 
     public static void main(String[] args) {
-        System.out.println("Merge Sort Algorithm Used: MergeSort4 (Linked List Version)\n");
+        System.out.println("Merge Sort Algorithm Used: MergeSort4 (Linked List Version)\n");    
 
         // Test with a small array for demonstration
-        int[] array = {16, 14, 55, 134, 444, 123, 561, 10000, 863, 22};
+        int[] array = {16, 14, 55, 134, 444, 123, 561, 10000, 863, 22}; // Sample array
         Node head = arrayToList(array);
 
         System.out.println("Initial linked list:");
         printList(head);
         System.out.println();
 
-        head = mergesort4(head);
+        head = mergesort4(head);  // Sort the linked list
 
         System.out.println("\nSorted linked list:");
         printList(head);
@@ -426,13 +426,13 @@ public class Mergesort4 {
 
         System.out.println("Mergesort Analysis:");
         System.out.println("    Algorithm: Top-Down Recursive Merge Sort for Linked Lists");
-        System.out.println("    Total Comparisons Made: " + totalComparisons);
+        System.out.println("    Total Comparisons Made: " + totalComparisons); // Output total comparisons
         System.out.println("    Time Complexity: O(n log n)");
-        System.out.println("    Space Complexity: O(log n) due to recursion stack\n");
+        System.out.println("    Space Complexity: O(log n) due to recursion stack\n"); // Space complexity
 
         // Performance testing
-        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000}; // Array sizes
+        String[] arrayTypes = {"Random", "Sorted", "Reversed", "Nearly Sorted"}; // Array types
         long grandTotalTimeMillis = 0;
 
         for (int size : sizes) {
@@ -473,7 +473,7 @@ public class Mergesort4 {
                 grandTotalComparisons += totalComparisons;
 
                 // Output results
-                System.out.println("\nAverage execution time for " + arrayType + " array of size " + size + ":");
+                System.out.println("\nAverage execution time for " + arrayType + " array of size " + size + ":");  
                 System.out.println("    " + averageTimeMillis + " milliseconds");
                 System.out.println("    " + averageTimeSeconds + " seconds");
                 System.out.println("    Average Memory Used: " + averageMemoryUsed + " bytes");
@@ -486,9 +486,9 @@ public class Mergesort4 {
         }
 
         // Grand Total Summary
-        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0;
-        long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);
-        double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;
+        double grandTotalTimeSecondsFinal = grandTotalTimeMillis / 1000.0;  // Convert to seconds
+        long grandTotalMinutes = grandTotalTimeMillis / (60 * 1000);    // Convert to minutes
+        double grandTotalSeconds = (grandTotalTimeMillis % (60 * 1000)) / 1000.0;   // Remaining seconds
 
         System.out.println("\nGrand Total Execution Time for All Arrays and Sizes:");
         System.out.println("    " + grandTotalTimeMillis + " milliseconds");
@@ -505,60 +505,60 @@ public class Mergesort4 {
     }
 
     // Convert array to linked list
-    public static Node arrayToList(int[] array) {
-        if (array.length == 0) return null;
-        Node head = new Node(array[0]);
-        Node current = head;
-        for (int i = 1; i < array.length; i++) {
-            current.next = new Node(array[i]);
-            current = current.next;
+    public static Node arrayToList(int[] array) {   
+        if (array.length == 0) return null; // Return null if array is empty
+        Node head = new Node(array[0]); // Create a new node for the first element
+        Node current = head;    // Set the current node to the head
+        for (int i = 1; i < array.length; i++) {    // Iterate through the array
+            current.next = new Node(array[i]);  // Create a new node for each element
+            current = current.next; // Move the current node to the next node
         }
-        return head;
+        return head;    // Return the head of the linked list
     }
 
     // Print linked list
-    public static void printList(Node head) {
-        Node current = head;
-        int count = 0;
-        while (current != null && count < 25) {
-            System.out.print(current.key + " ");
-            current = current.next;
+    public static void printList(Node head) {   
+        Node current = head;    // Start from the head
+        int count = 0;  // Counter for elements
+        while (current != null && count < 25) {   // Iterate through the list
+            System.out.print(current.key + " ");    // Print the key of the current node
+            current = current.next; // Move to the next node
             count++;
         }
-        if (current != null) System.out.print("... (output limited to 25 elements)");
+        if (current != null) System.out.print("... (output limited to 25 elements)");   // Output limit
         System.out.println();
     }
 
     // Top-Down Merge Sort for Linked List
-    public static Node mergesort4(Node head) {
-        if (head == null || head.next == null) return head;
+    public static Node mergesort4(Node head) {  
+        if (head == null || head.next == null) return head; // Return if the list is empty or has one element
 
-        Node middle = getMiddle(head);
-        Node nextToMiddle = middle.next;
-        middle.next = null;
+        Node middle = getMiddle(head);  // Find the middle of the list
+        Node nextToMiddle = middle.next;    // Next to the middle
+        middle.next = null; // Split the list into two halves
 
-        Node left = mergesort4(head);
-        Node right = mergesort4(nextToMiddle);
+        Node left = mergesort4(head);   // Recursively sort the left half
+        Node right = mergesort4(nextToMiddle);  // Recursively sort the right half
 
-        return merge4(left, right);
+        return merge4(left, right); // Merge the sorted halves
     }
 
     // Merge two sorted linked lists
-    public static Node merge4(Node left, Node right) {
-        Node dummy = new Node(0);
-        Node current = dummy;
+    public static Node merge4(Node left, Node right) {  
+        Node dummy = new Node(0);   // Create a dummy node
+        Node current = dummy;   // Set the current node to the dummy
 
-        while (left != null && right != null) {
-            totalComparisons++;
-            if (left.key <= right.key) {
-                current.next = left;
+        while (left != null && right != null) {   // Iterate through the lists
+            totalComparisons++; // Increment the comparison counter
+            if (left.key <= right.key) {    // Compare the keys
+                current.next = left;    // Set the next node to the left node
                 left = left.next;
             } else {
-                current.next = right;
+                current.next = right;   // Set the next node to the right node
                 right = right.next;
             }
             current = current.next;
-        }
+        }   // Continue until one of the lists is empty
 
         if (left != null) current.next = left;
         else current.next = right;
@@ -572,8 +572,8 @@ public class Mergesort4 {
 
         Node slow = head, fast = head;
         while (fast.next != null && fast.next.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+            slow = slow.next;   // Move the slow pointer by one
+            fast = fast.next.next;  // Move the fast pointer by two
         }
         return slow;
     }
@@ -608,12 +608,12 @@ public class Mergesort4 {
 }
 
 // Node class definition
-class Node {
-    int key;
-    Node next;
+class Node {    
+    int key;    // Node key
+    Node next;  // Next node
 
     Node(int key) {
-        this.key = key;
-        this.next = null;
+        this.key = key; // Set the key
+        this.next = null;   // Set the next node to null
     }
 }

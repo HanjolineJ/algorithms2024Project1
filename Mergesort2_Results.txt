@@ -1,0 +1,29 @@
+Detailed Results:
+Array Type: Random Array, Size: 10, Average Time: 0.002722 ms (2.722E-6 s), Average Memory Used: 9290 bytes
+Array Type: Sorted Array, Size: 10, Average Time: 0.001048 ms (1.0480000000000002E-6 s), Average Memory Used: 3114 bytes
+Array Type: Reversed Array, Size: 10, Average Time: 0.001897 ms (1.897E-6 s), Average Memory Used: 3104 bytes
+Array Type: Nearly Sorted Array, Size: 10, Average Time: 0.001693 ms (1.6930000000000001E-6 s), Average Memory Used: 3104 bytes
+Array Type: Random Array, Size: 100, Average Time: 0.0049 ms (4.9E-6 s), Average Memory Used: 7088 bytes
+Array Type: Sorted Array, Size: 100, Average Time: 0.002802 ms (2.8019999999999996E-6 s), Average Memory Used: 7088 bytes
+Array Type: Reversed Array, Size: 100, Average Time: 0.002796 ms (2.796E-6 s), Average Memory Used: 7088 bytes
+Array Type: Nearly Sorted Array, Size: 100, Average Time: 0.002787 ms (2.787E-6 s), Average Memory Used: 7088 bytes
+Array Type: Random Array, Size: 1000, Average Time: 0.032024 ms (3.2024E-5 s), Average Memory Used: 93560 bytes
+Array Type: Sorted Array, Size: 1000, Average Time: 0.023378 ms (2.3378E-5 s), Average Memory Used: 93560 bytes
+Array Type: Reversed Array, Size: 1000, Average Time: 0.024098 ms (2.4098000000000002E-5 s), Average Memory Used: 93560 bytes
+Array Type: Nearly Sorted Array, Size: 1000, Average Time: 0.056184 ms (5.6183999999999996E-5 s), Average Memory Used: 93560 bytes
+Array Type: Random Array, Size: 10000, Average Time: 0.477567 ms (4.7756700000000003E-4 s), Average Memory Used: 810575 bytes
+Array Type: Sorted Array, Size: 10000, Average Time: 0.211905 ms (2.11905E-4 s), Average Memory Used: 808149 bytes
+Array Type: Reversed Array, Size: 10000, Average Time: 0.228191 ms (2.28191E-4 s), Average Memory Used: 807526 bytes
+Array Type: Nearly Sorted Array, Size: 10000, Average Time: 0.248341 ms (2.48341E-4 s), Average Memory Used: 807526 bytes
+Array Type: Random Array, Size: 100000, Average Time: 6.875734 ms (0.006875734 s), Average Memory Used: 832831 bytes
+Array Type: Sorted Array, Size: 100000, Average Time: 2.468379 ms (0.002468379 s), Average Memory Used: 813947 bytes
+Array Type: Reversed Array, Size: 100000, Average Time: 2.627487 ms (0.002627487 s), Average Memory Used: 813973 bytes
+Array Type: Nearly Sorted Array, Size: 100000, Average Time: 2.804491 ms (0.002804491 s), Average Memory Used: 813937 bytes
+Array Type: Random Array, Size: 1000000, Average Time: 77.559281 ms (0.077559281 s), Average Memory Used: 13746714 bytes
+Array Type: Sorted Array, Size: 1000000, Average Time: 30.465439 ms (0.030465439 s), Average Memory Used: 43350912 bytes
+Array Type: Reversed Array, Size: 1000000, Average Time: 32.782372 ms (0.032782372000000004 s), Average Memory Used: 43713627 bytes
+Array Type: Nearly Sorted Array, Size: 1000000, Average Time: 34.080171 ms (0.034080171 s), Average Memory Used: 43711162 bytes
+
+Grand Totals:
+Total Execution Time: 19088 ms
+Total Memory Used: 15145209096 bytes

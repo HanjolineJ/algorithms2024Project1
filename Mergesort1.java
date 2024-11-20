@@ -218,27 +218,27 @@ public class Mergesort1 {
     static List<String> detailedResults = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Merge Sort Algorithm Used: Mergesort1\n");
+        System.out.println("Merge Sort Algorithm Used: Mergesort1\n"); // Print the algorithm name
 
         // Custom array for demonstration
-        int[] customArray = {2679, 44, 01, 5558, 22, 1605, 99, 46, 15, 79};
-        System.out.println("Initial Array (size " + customArray.length + "):");
+        int[] customArray = {2679, 44, 01, 5558, 22, 1605, 99, 46, 15, 79}; // Custom array
+        System.out.println("Initial Array (size " + customArray.length + "):"); // Print initial array
         printArray(customArray);
 
-        mergeSort(customArray, 0, customArray.length - 1);
-        System.out.println("Sorted Array (size " + customArray.length + "):");
+        mergeSort(customArray, 0, customArray.length - 1); // Sort the custom array using Mergesort1
+        System.out.println("Sorted Array (size " + customArray.length + "):");  // Print sorted array
         printArray(customArray);
         System.out.println();
 
         // Test sizes and input types
-        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};
-        String[] arrayTypes = {"Random Array", "Sorted Array", "Reversed Array", "Nearly Sorted Array"};
+        int[] sizes = {10, 100, 1000, 10000, 100000, 1000000};  // Array sizes
+        String[] arrayTypes = {"Random Array", "Sorted Array", "Reversed Array", "Nearly Sorted Array"};    // Array types
 
-        long grandTotalTimeMillis = 0;
-        long grandTotalMemoryBytes = 0;
-        long grandTotalComparisons = 0;
+        long grandTotalTimeMillis = 0;  // Total time in milliseconds
+        long grandTotalMemoryBytes = 0; // Total memory used in bytes
+        long grandTotalComparisons = 0; // Total comparisons across all runs
 
-        for (int size : sizes) {
+        for (int size : sizes) {    // For each size
             for (String arrayType : arrayTypes) {
                 int[] testArray = ArrayGenerator.generateArray(arrayType, size);
                 long totalTime = 0;
@@ -279,7 +279,7 @@ public class Mergesort1 {
                 grandTotalMemoryBytes += totalMemoryUsed;
                 grandTotalComparisons += totalComparisons;
 
-                detailedResults.add("Array Type: " + arrayType +
+                detailedResults.add("Array Type: " + arrayType +    
                         ", Size: " + size +
                         ", Average Time: " + averageTimeMillis + " ms (" + averageTimeSeconds + " s)" +
                         ", Average Memory Used: " + averageMemoryUsed + " bytes");
@@ -304,33 +304,33 @@ public class Mergesort1 {
         }
     }
 
-    public static void mergeSort(int[] array, int left, int right) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            mergeSort(array, left, mid);
-            mergeSort(array, mid + 1, right);
-            merge(array, left, mid, right);
+    public static void mergeSort(int[] array, int left, int right) {    // Merge sort
+        if (left < right) { // If left is less than right
+            int mid = (left + right) / 2;   // Calculate mid
+            mergeSort(array, left, mid);    // Recursively sort left half
+            mergeSort(array, mid + 1, right);   // Recursively sort right half
+            merge(array, left, mid, right); // Merge the sorted halves
         }
     }
 
     public static void merge(int[] array, int left, int mid, int right) {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
+        int n1 = mid - left + 1;    // Length of left subarray
+        int n2 = right - mid;   // Length of right subarray
 
-        int[] L = new int[n1];
-        int[] R = new int[n2];
+        int[] L = new int[n1];  // Create left subarray
+        int[] R = new int[n2];  // Create right subarray
 
-        totalMemoryAllocated += (n1 + n2) * Integer.BYTES;
+        totalMemoryAllocated += (n1 + n2) * Integer.BYTES;  // Memory allocated for L and R arrays
 
-        for (int i = 0; i < n1; i++) {
-            L[i] = array[left + i];
+        for (int i = 0; i < n1; i++) {  // Copy elements to left subarray
+            L[i] = array[left + i]; 
         }
-        for (int j = 0; j < n2; j++) {
+        for (int j = 0; j < n2; j++) {  // Copy elements to right subarray
             R[j] = array[mid + 1 + j];
         }
 
-        int i = 0, j = 0, k = left;
-        while (i < n1 && j < n2) {
+        int i = 0, j = 0, k = left; // Initialize indices
+        while (i < n1 && j < n2) {  // Merge the subarrays
             totalComparisons++;
             if (L[i] <= R[j]) {
                 array[k] = L[i];
@@ -342,62 +342,62 @@ public class Mergesort1 {
             k++;
         }
 
-        while (i < n1) {
+        while (i < n1) {    // Copy remaining elements of L
             array[k] = L[i];
             i++;
             k++;
         }
 
-        while (j < n2) {
+        while (j < n2) {    // Copy remaining elements of R
             array[k] = R[j];
             j++;
             k++;
         }
     }
 
-    public static void printArray(int[] array) {
-        int limit = Math.min(array.length, 25);
-        for (int i = 0; i < limit; i++) {
-            System.out.print(array[i] + " ");
+    public static void printArray(int[] array) {    // Print array
+        int limit = Math.min(array.length, 25); // Limit output to 25 elements
+        for (int i = 0; i < limit; i++) {   
+            System.out.print(array[i] + " ");   
         }
         if (array.length > 25) {
-            System.out.println("... (truncated to 25 elements)");
+            System.out.println("... (limit to 25 elements)");
         } else {
             System.out.println();
         }
     }
 }
 
-class ArrayGenerator {
+class ArrayGenerator {  // Array generator
     public static int[] generateArray(String type, int size) {
-        Random random = new Random();
-        int[] array = new int[size];
+        Random random = new Random();   // Random object
+        int[] array = new int[size];    // Create array
         switch (type) {
             case "Random Array":
                 for (int i = 0; i < size; i++) {
-                    array[i] = random.nextInt(10000);
+                    array[i] = random.nextInt(10000);   // Random values between 0 and 9999
                 }
                 break;
             case "Sorted Array":
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {    // Sorted array
                     array[i] = i;
                 }
                 break;
             case "Reversed Array":
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {    // Reversed array
                     array[i] = size - i;
                 }
                 break;
             case "Nearly Sorted Array":
-                for (int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {    // Nearly sorted array
                     array[i] = i;
                 }
                 for (int i = 0; i < size * 0.05; i++) {
                     int idx = random.nextInt(size);
-                    array[idx] = random.nextInt(10000);
+                    array[idx] = random.nextInt(10000);  // Random values between 0 and 9999
                 }
                 break;
         }
-        return array;
+        return array;   // Return array
     }
 }
